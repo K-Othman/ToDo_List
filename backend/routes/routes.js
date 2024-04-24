@@ -4,8 +4,13 @@ import Model from "../model/model.js";
 const router = express.Router();
 
 // Get ToDos
-router.get("/todos", (req, res) => {
-  res.send("Get All API");
+router.get("/todos", async (req, res) => {
+  try {
+    const getAllData = await Model.find();
+    res.json(getAllData);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // Add todos
