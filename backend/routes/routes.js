@@ -27,9 +27,26 @@ router.post("/todos", async (req, res) => {
 });
 
 // Update todo
-router.put("/todo/:id", (req, res) => {});
+router.put("/todo/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const update = req.body;
+    const updatedBody = await Model.findByIdAndUpdate(id, update);
+    res.json(updatedBody);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 // Delete todo
-router.delete("/todo/:id", (req, res) => {});
+router.delete("/todo/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await Model.findByIdAndDelete(id);
+    res.send("ToDo has been deleted successfully!");
+  } catch (err) {
+    res(400).json({ message: err.message });
+  }
+});
 
 export default router;
