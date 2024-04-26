@@ -18,17 +18,7 @@ const Todos = () => {
     fetchData();
   }, []);
 
-  //   const handleClick = async () => {
-  //     try {
-  //       const res = await axios.delete(`${theLink}todo/${_id}`);
-  //       //   setTodos(todos.filter((todo) => todo._id !== todoId));
-  //       console.log(res);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  const handleClick = async (todoId) => {
+  const handleDelete = async (todoId) => {
     try {
       await axios.delete(`${theLink}todo/${todoId}`);
       setTodos(todos.filter((todo) => todo._id !== todoId));
@@ -37,34 +27,56 @@ const Todos = () => {
     }
   };
 
+  const handlePost = async () => {
+    try {
+      await axios.post(`${theLink}todos`, {
+        todo: value,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //   const handleUpdate = async (todoId) => {
+  //     try {
+  //       const res = axios.put(`${theLink}todo/${todoId}`);
+  //       console.log(res);
+  //       setTodos();
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
   return (
     <section>
       <div>
         <form>
-          <label htmlFor="todo">Todo : </label>
-          <input
-            type="text"
-            name="todo"
-            placeholder="Todo"
-            value={value}
-            onChange={setValue}
-            required
-          />
+          <label htmlFor="todo">
+            Todo :
+            <input
+              type="text"
+              name="todo"
+              placeholder="Todo"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              required
+            />
+          </label>
+          <input onClick={handlePost} type="submit" />
         </form>
-        {todos ? (
+        {todos.length > 0 ? (
           todos.map((todo) => (
             <div key={todo._id} className="flex justify-between">
               <p>{todo.todo}</p>
               <div className="flex gap-3">
-                <button onClick={() => handleClick(todo._id)}>Delete</button>
-
-                {/* <button onClick={handleClick}>Delete</button> */}
-                <p>Update</p>
+                <button onClick={() => handleDelete(todo._id)}>Delete</button>
+                {/* <button onClick={() => handleUpdate(todo._id)}>Update</button> */}
+                <button>Update</button>
               </div>
             </div>
           ))
         ) : (
-          <p>What Are You Up to Today</p>
+          <p>What Are You Up to Today!</p>
         )}
       </div>
     </section>
