@@ -18,6 +18,8 @@ const Todos = () => {
     fetchData();
   }, []);
 
+  // Handling Deleting todos
+
   const handleDelete = async (todoId) => {
     try {
       await axios.delete(`${theLink}todo/${todoId}`);
@@ -27,6 +29,7 @@ const Todos = () => {
     }
   };
 
+  // Handling posting todos
   const handlePost = async () => {
     try {
       await axios.post(`${theLink}todos`, {
@@ -37,15 +40,15 @@ const Todos = () => {
     }
   };
 
-  //   const handleUpdate = async (todoId) => {
-  //     try {
-  //       const res = axios.put(`${theLink}todo/${todoId}`);
-  //       console.log(res);
-  //       setTodos();
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
+  //   Handling Updating todos
+  const handleUpdate = async (todoId) => {
+    try {
+      const update = await axios.put(`${theLink}todo/${todoId}`);
+      console.log(update);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <section>
@@ -70,8 +73,7 @@ const Todos = () => {
               <p>{todo.todo}</p>
               <div className="flex gap-3">
                 <button onClick={() => handleDelete(todo._id)}>Delete</button>
-                {/* <button onClick={() => handleUpdate(todo._id)}>Update</button> */}
-                <button>Update</button>
+                <button onClick={() => handleUpdate(todo._id)}>Update</button>
               </div>
             </div>
           ))
