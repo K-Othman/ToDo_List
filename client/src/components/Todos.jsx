@@ -4,6 +4,7 @@ import axios from "axios";
 const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [value, setValue] = useState("");
+  const [updateValue, setUpdateValue] = useState("");
   const theLink = "http://localhost:8800/api/";
 
   useEffect(() => {
@@ -30,21 +31,53 @@ const Todos = () => {
   };
 
   // Handling posting todos
-  const handlePost = async () => {
+  const handlePost = async (e) => {
+    e.preventDefault();
     try {
-      await axios.post(`${theLink}todos`, {
+      const res = await axios.post(`${theLink}todos`, {
         todo: value,
       });
+      setTodos([...todos, res.data]);
+      setValue("");
     } catch (err) {
       console.log(err);
     }
   };
 
-  //   Handling Updating todos
+  //   // Handling Updating todos
+  //   const handleUpdate = async (todoId) => {
+  //     try {
+  //       const res = await axios.put(`${theLink}todo/${todoId}`, {
+  //         update: value,
+  //       });
+  //       console.log(res.data.todo);
+  //       setValue(res.data.todo);
+
+  //       //   setTodos(todos.map((todo) => (todo._id === todoId ? res.data : todo)));
+  //       setTodos(todos.map((todo) => (todo._id === todoId ? res.data : todo)));
+  //       //   setValue("");
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  // Handling Updating todos
+  const handleEdit = (todo) => {
+    setValue(todo.todo); // Set the input field to the todo's current text
+    setUpdateValue(todo._id); // Set the editing ID to the current todo's ID
+  };
+  // Handling Updating todos
   const handleUpdate = async (todoId) => {
     try {
-      const update = await axios.put(`${theLink}todo/${todoId}`);
-      console.log(update);
+      const res = await axios.put(`${theLink}todo/${todoId}`, {
+        update: value, // Use the correct key for the updated value
+      });
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo._id === todoId ? { ...todo, todo: res.data.todo } : todo
+        )
+      );
+      setUpdateValue(null); // Reset the editing ID after updating
+      setValue(""); // Clear the input field after updating
     } catch (err) {
       console.log(err);
     }
