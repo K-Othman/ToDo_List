@@ -27,11 +27,13 @@ router.post("/todos", async (req, res) => {
 });
 
 // Update todo
-router.put("/todo/:id", async (req, res) => {
+router.put("/todo/:_id", async (req, res) => {
   try {
-    const id = req.params.id;
-    const update = req.body;
-    const updatedBody = await Model.findByIdAndUpdate(id, update);
+    const id = req.params._id;
+    const update = { done: req.body.done };
+    const updatedBody = await Model.findByIdAndUpdate(id, update, {
+      new: true,
+    });
     res.json(updatedBody);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -39,13 +41,13 @@ router.put("/todo/:id", async (req, res) => {
 });
 
 // Delete todo
-router.delete("/todo/:id", async (req, res) => {
+router.delete("/todo/:_id", async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params._id;
     const data = await Model.findByIdAndDelete(id);
     res.send("ToDo has been deleted successfully!");
   } catch (err) {
-    res(400).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 

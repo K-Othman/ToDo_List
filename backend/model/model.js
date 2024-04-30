@@ -5,6 +5,10 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  done: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("Data", dataSchema);
