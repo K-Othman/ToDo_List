@@ -26,7 +26,7 @@ router.post("/todos", async (req, res) => {
   }
 });
 
-// Update todo
+// Update todo and Done
 router.put("/todo/:_id", async (req, res) => {
   try {
     const id = req.params._id;
@@ -35,6 +35,18 @@ router.put("/todo/:_id", async (req, res) => {
       new: true,
     });
     res.json(updatedBody);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Update todo
+router.put("/todos/update", async (req, res) => {
+  try {
+    const { _id, todo } = req.body;
+
+    await Model.findByIdAndUpdate(_id, { todo: todo });
+    res.send("Updated Successfully");
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

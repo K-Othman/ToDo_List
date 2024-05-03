@@ -1,29 +1,34 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submit = async (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8800/login", {
+      const res = await axios.post("http://localhost:8800/api/login", {
         email,
         password,
       });
+      console.log(res.data);
+      if (res.data === "Success") {
+        navigate("/");
+      }
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(email, password);
 
   return (
     <section>
       <h1>Login</h1>
-      <form action="POST">
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           onChange={(e) => {
@@ -38,12 +43,12 @@ const Login = () => {
           }}
           placeholder="Password"
         />
-        <input type="submit" onClick={submit} />
+        <button type="submit">Login</button>
       </form>
       <br />
       <p>OR</p>
       <br />
-      <Link to={"/register"}>Sign Up</Link>
+      <Link to={"/register"}>Don't have account?</Link>
     </section>
   );
 };
