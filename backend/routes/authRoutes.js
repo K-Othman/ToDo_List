@@ -1,10 +1,10 @@
-import express, { Router } from "express";
-import cors from "cors";
+import express from "express";
+
 import AuthModel from "../model/auth.js";
 
 const authRouter = express.Router();
 
-authRouter.get("/login", cors(), (req, res) => {});
+// authRouter.get("/login", cors(), (req, res) => {});
 
 authRouter.post("/register", async (req, res) => {
   try {
