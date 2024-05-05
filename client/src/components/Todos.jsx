@@ -1,75 +1,25 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useContext } from "react";
+
+import { myTodoContext } from "../context/TodoContextApi";
 
 const Todos = () => {
-  const [todos, setTodos] = useState([]);
-  const [value, setValue] = useState("");
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
-  const theUrl = "http://localhost:8800/api/";
+  // const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${theUrl}todos`);
-        setTodos(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+  const {
+    handlePost,
+    handleDelete,
+    actionUpdate,
 
-  // Handling Deleting todos
+    todos,
+    value,
+    setValue,
 
-  const handleDelete = async (todoId) => {
-    try {
-      await axios.delete(`${theUrl}todo/${todoId}`);
-      setTodos(todos.filter((todo) => todo._id !== todoId));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // Handling posting todos
-  const handlePost = async (e) => {
-    try {
-      const res = await axios.post(`${theUrl}todos`, {
-        todo: value,
-      });
-      setTodos([...todos, res.data]);
-      setValue("");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // Handling action Updating todos
-
-  const actionUpdate = async (id, done) => {
-    try {
-      const res = await axios.put(`${theUrl}todo/` + id, { done: !done });
-      setTodos(todos.map((todo) => (todo._id === id ? res.data : todo)));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // Handle Editing todos
-
-  const handleUpdate = async (id) => {
-    try {
-      await axios.put(`${theUrl}/todos/update`, {
-        _id: id,
-        todo: value,
-      });
-      setValue("");
-      setIsUpdating(false);
-      setTodos(todos.map((t) => (t._id === id ? { ...t, todo: value } : t)));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    isUpdating,
+    setIsUpdating,
+    selectedId,
+    setSelectedId,
+    handleUpdate,
+  } = useContext(myTodoContext);
 
   return (
     <section className="text-center w-[700px] mx-auto mt-10">
