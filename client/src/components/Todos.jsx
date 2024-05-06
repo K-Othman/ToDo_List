@@ -3,17 +3,13 @@ import { useContext } from "react";
 import { myTodoContext } from "../context/TodoContextApi";
 
 const Todos = () => {
-  // const [todos, setTodos] = useState([]);
-
   const {
     handlePost,
     handleDelete,
     actionUpdate,
-
     todos,
     value,
     setValue,
-
     isUpdating,
     setIsUpdating,
     selectedId,

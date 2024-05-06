@@ -8,8 +8,11 @@ function App() {
     <div className="container mx-auto">
       <BrowserRouter>
         <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path={"/"} element={<Home />} /> */}
+          <Route path={"/"} element={<Login />} />
+          <Route path={"/home"} element={<Home />} />
+
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
