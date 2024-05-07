@@ -1,10 +1,8 @@
 import express from "express";
-
+import bcrypt from "bcryptjs";
 import AuthModel from "../model/auth.js";
 
 const authRouter = express.Router();
-
-// authRouter.get("/login", cors(), (req, res) => {});
 
 authRouter.post("/register", async (req, res) => {
   try {
@@ -20,7 +18,8 @@ authRouter.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await AuthModel.findOne({ email: email });
     if (user) {
-      if (user.password === password) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (isPasswordValid) {
         res.json("Success");
       } else {
         res.json("Password is incorrect");

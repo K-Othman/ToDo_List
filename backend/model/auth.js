@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const authSchema = new mongoose.Schema({
   name: {
@@ -13,6 +14,14 @@ const authSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+});
+
+// encrypting password before saving
+authSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 const AuthModel = mongoose.model("Auth", authSchema);
