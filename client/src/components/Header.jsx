@@ -7,9 +7,7 @@ const Header = () => {
         <h1>ToDay</h1>
       </Link>
       <div className="flex gap-4">
-        <Link to="/login">
-          <h1>Login</h1>
-        </Link>
+        <Link to="/logout">Logout</Link>
         <Link to="/register">
           <h1>Start for free</h1>
         </Link>

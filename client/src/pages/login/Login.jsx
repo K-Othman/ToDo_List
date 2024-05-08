@@ -73,6 +73,7 @@ const Login = () => {
         email,
         password,
       });
+      console.log(res.data);
       if (res.data === "Success") {
         navigate("/home");
       } else {
