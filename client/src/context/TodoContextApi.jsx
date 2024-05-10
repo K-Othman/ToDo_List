@@ -19,7 +19,14 @@ export const MyTodoContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${theUrl}todos`);
+        // const token = localStorage.getItem("token");
+        // if (!token) return "Haven't Logged In Successfully";
+
+        const res = await axios.get(`${theUrl}todos`, {
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
+        });
         setTodos(res.data);
       } catch (err) {
         console.log(err);
