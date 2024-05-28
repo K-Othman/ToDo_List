@@ -28,32 +28,6 @@ const Login = () => {
       console.log(err);
     }
   };
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const res = await axios.post("http://localhost:8800/api/login", {
-  //       email,
-  //       password,
-  //     });
-
-  //     if (res.data.token) {
-  //       localStorage.setItem("token", res.data.token);
-  //       navigate("/home");
-  //     } else {
-  //       // This will help you understand what the server responded with
-  //       console.log("Response status:", res.status);
-  //       console.log("Response status text:", res.statusText);
-  //       setErrorMessage("Either email or password is incorrect.");
-  //     }
-  //   } catch (err) {
-  //     console.error(
-  //       "Error during login:",
-  //       err.response ? err.response.data : err
-  //     );
-  //     setErrorMessage("An error occurred during login.");
-  //   }
-  // };
 
   return (
     <section className="bg-white text-black min-h-screen flex items-center justify-center">
@@ -77,7 +51,7 @@ const Login = () => {
           )}
           <button
             type="submit"
-            className="w-full p-2 border border-black bg-black text-white rounded cursor-pointer hover:bg-white hover:text-black hover:border-transparent transition-colors"
+            className="w-full p-2 border border-black bg-black text-white rounded cursor-pointer hover:bg-white hover:border-black hover:text-black hover:border-transparent transition-colors"
           >
             Login
           </button>
