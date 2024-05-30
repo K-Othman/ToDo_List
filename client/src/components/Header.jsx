@@ -8,11 +8,11 @@ const Header = () => {
   };
 
   return (
-    <header className="flex justify-between my-4">
-      <Link to="/">
+    <header className="flex justify-between my-4 ">
+      <Link to="/" className="font-bold text-lg ml-8">
         <h1>ToDay</h1>
       </Link>
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4 ">
         <button onClick={handleLogout}>Logout</button>
         <Link to="/register">
           <h1>Start for free</h1>
